@@ -1,11 +1,12 @@
 import streamlit as st
+from helper import utility as u
 
 if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
 
 def logout():
     if st.button("Confirm to Log out?"):
-        st.session_state["logged_in"] = False
+        u.clear_all_sessions()
         st.rerun()
 
 login_page = st.Page("info/login.py", title="Log in", icon=":material/login:")

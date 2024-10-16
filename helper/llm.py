@@ -1,3 +1,4 @@
+# filename: llm.py
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -35,7 +36,7 @@ def get_completion(prompt, model=OPENAI_MODEL, temperature=0, top_p=1.0, max_tok
       output_json_structure = None
 
     messages = [{"role": "user", "content": prompt}]
-    response = client.chat.completions.create( #originally was openai.chat.completions
+    response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
@@ -48,16 +49,20 @@ def get_completion(prompt, model=OPENAI_MODEL, temperature=0, top_p=1.0, max_tok
 
 
 # Note that this function directly take in "messages" as the parameter.
-def get_completion_by_messages(messages, model=OPENAI_MODEL, temperature=0, top_p=1.0, max_tokens=1024, n=1):
+def get_completion_by_messages(messages, model=OPENAI_MODEL, temperature=0, top_p=1.0, max_tokens=1024, n=1, stream=False):
     response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
         top_p=top_p,
         max_tokens=max_tokens,
-        n=1
+        n=1,
+        stream=stream
     )
-    return response.choices[0].message.content
+    if stream:
+       return response
+    else:
+        return response.choices[0].message.content
 
 
 # This function is for calculating the tokens given the "message"
