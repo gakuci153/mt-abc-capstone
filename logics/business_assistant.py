@@ -6,7 +6,7 @@ from helper import data_loader
 data_files = data_loader.DATA_FILES
 
 # Making sure the source data are loaded
-data_loader.prepare_data(data_files)
+#data_loader.prepare_data(data_files)
 
 # Initialize the tool
 #tool_acra_file = FileReadTool(file_path=data_files['acra'])
