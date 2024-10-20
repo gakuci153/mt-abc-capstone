@@ -1,0 +1,43 @@
+{
+    "acra" : {
+        "base_url" : "https://www.acra.gov.sg", 
+        "exclude_urls" : [
+            "https://www.acra.gov.sg/who-we-are/",
+            "https://www.acra.gov.sg/sitemap",
+            "https://www.acra.gov.sg/training-and-resources/facts-and-figures/business-registry-statistics",
+            "https://www.acra.gov.sg/training-and-resources/publications/reports/acra-annual-reports",
+            "https://www.acra.gov.sg/privacy-statement",
+            "https://www.acra.gov.sg/terms-of-use",
+            "https://www.acra.gov.sg/rate-this-site",
+            "https://www.acra.gov.sg/contact-us",
+            "https://www.acra.gov.sg/feedback"
+        ]
+    },
+    "gobusiness" : {
+        "base_url" : "https://www.gobusiness.gov.sg",
+        "exclude_urls" : [
+            "https://www.gobusiness.gov.sg/about-us/",
+            "https://www.gobusiness.gov.sg/contact-us/",
+            "https://www.gobusiness.gov.sg/news-and-updates/",
+            "https://www.gobusiness.gov.sg/e-services/",
+            "https://www.gobusiness.gov.sg/privacy/",
+            "https://www.gobusiness.gov.sg/terms-of-use/",
+            "https://www.gobusiness.gov.sg/contact-us/",
+            "https://www.gobusiness.gov.sg/contact-us/"
+        ]
+    },
+    "iras" : {
+        "base_url" : "https://www.iras.gov.sg",
+        "exclude_urls" : [
+            "https://www.iras.gov.sg/who-we-are/",
+            "https://www.iras.gov.sg/digital-services/",
+            "https://www.iras.gov.sg/digital-collaboration/",
+            "https://elearn.iras.gov.sg/gst/overviewofgst/",
+            "https://www.iras.gov.sg/careers/",
+            "https://www.iras.gov.sg/news-events/",
+            "https://www.iras.gov.sg/useful-links",
+            "https://www.iras.gov.sg/contact-us",
+            "https://www.iras.gov.sg/feedback"
+        ]
+    }
+}
