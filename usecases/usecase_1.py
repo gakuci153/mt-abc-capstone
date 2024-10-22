@@ -24,7 +24,7 @@ for uc1_message in st.session_state.uc1_messages:
 
 response = ""
 
-if prompt := st.chat_input("Hi! Staring a business in Singapore?", key="usecase1"):
+if prompt := st.chat_input("Hi! Starting a business in Singapore?", key="usecase1"):
     st.session_state.uc1_messages.append({"role": "user", "content": prompt})
     st.session_state["uc1_query"] = prompt
     
