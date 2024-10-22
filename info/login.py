@@ -13,6 +13,10 @@ def password_entered():
         else:  
             st.session_state["password_match"] = "😕 Password incorrect! Please try again or contact mya_thein@nlb.gov.sg"
             
+st.set_page_config(
+    page_title="Business Startup Assistant",
+    page_icon=":material/smart_toy:",
+)
 
 # Show input for password.  
 st.title("Welcome to Capstone Project C!!")
