@@ -1,41 +1,32 @@
 import streamlit as st
-from helper import utility
-from logics import validator, business_assistant as bs
 
-st.subheader("Singapore Business Setup Assistant", divider=True)
+from helper import utility as u
+from logics import ai_assistant as a, validator as v
 
-with st.expander("**DISCLAIMER**"):
-    st.write("""
-    **IMPORTANT NOTICE**: This web application is a prototype developed for educational purposes only. The information provided here is NOT intended for real-world usage and should not be relied upon for making any decisions, especially those related to financial, legal, or healthcare matters.
+st.subheader("Singapore Business Setup Assistant", divider=False)
 
-    **Furthermore, please be aware that the LLM may generate inaccurate or incorrect information. You assume full responsibility for how you use any generated output.**
+u.show_disclaimer()
 
-    Always consult with qualified professionals for accurate and personalized advice.
-    """)
+u.show_sample_prompt("uc1")
 
-utility.show_sample_prompt()
+if "uc1_messages" not in st.session_state:
+    st.session_state.uc1_messages = []
 
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = utility.OPENAI_MODEL
+if "uc1_query" not in st.session_state:
+    st.session_state["uc1_query"] = ""
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if "uc1_result" not in st.session_state:
+    st.session_state["uc1_result"] = ""
 
-if "init_query" not in st.session_state:
-    st.session_state["init_query"] = ""
-
-if "crew_result" not in st.session_state:
-    st.session_state["crew_result"] = ""
-
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for uc1_message in st.session_state.uc1_messages:
+    with st.chat_message(uc1_message["role"]):
+        st.markdown(uc1_message["content"])
 
 response = ""
 
-if prompt := st.chat_input("Hi, how may I assist you?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.session_state["init_query"] = prompt
+if prompt := st.chat_input("Hi! Staring a business in Singapore?", key="usecase1"):
+    st.session_state.uc1_messages.append({"role": "user", "content": prompt})
+    st.session_state["uc1_query"] = prompt
     
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -47,13 +38,13 @@ if prompt := st.chat_input("Hi, how may I assist you?"):
             try:
                 st.write("Validating user query...")
                 # validate the user input to ensure the necessary input are provided
-                validation_response = validator.validate_user_input(st.session_state["init_query"])
+                validation_response = v.validate_user_input(st.session_state["uc1_query"], usecase="uc1")
 
                 user_input = {}
 
                 # check if further information is still needed to capture
                 if(validation_response["valid_query"]):
-                    user_input["init_query"] = st.session_state["init_query"]
+                    user_input["init_query"] = st.session_state["uc1_query"]
                     user_input["industry"] = validation_response["industry"]
                     user_input["company_capital"] = validation_response["company_capital"]
                     user_input["business_type"] = validation_response["business_type"]
@@ -62,33 +53,47 @@ if prompt := st.chat_input("Hi, how may I assist you?"):
                     ### this execution will take a few minutes to run
                     st.write("I am working on it. It will take a few minutes!!")
                     
-                    result = bs.business_assistant_crew().kickoff(inputs=user_input)
-                                        
-                    st.session_state["crew_result"] = result.tasks_output[2]
+                    result = a.business_assistant_crew().kickoff(inputs=user_input)        
+                    st.session_state["uc1_result"] = result.tasks_output[3]
+                    st.session_state["uc1_query"] = ""
+
                     response = "Report is ready!!!"
                     st.write(response)
-                    st.session_state["init_query"] = ""
-            
-                    status.update(label="Report is ready. Yayyy!!!", state="complete", expanded=False)
+                    
+                    status.update(label="Report is ready. Yayyy!!!", state="complete", expanded=True)
                 else:
-                    response = "I can't help with query. " + validation_response["reason"] 
+                    response = "I am unable to proceed with the query. " + validation_response["reason"] 
                     st.write(response)
-                    st.session_state["crew_result"] = ""
-                    status.update(label="Sorry. Please try again!!!", state="error", expanded=False)
-            except:
-                response = "Sorry! I failed due to technical error."
+                    st.session_state["uc1_result"] = ""
+                    status.update(label="Sorry. Please try again!!!", state="error", expanded=True)
+            
+            except Exception as e:
+
+                response = "Sorry! I failed due to technical error. Try again!!!" + " " + repr(e)
                 st.write(response)
-                status.update(label="Opps.. something went wrong!!!", state="error", expanded=False)
-                st.session_state["init_query"] = ""
-                st.session_state["crew_result"] = ""
+                status.update(label="Opps.. something went wrong!!!", state="error", expanded=True)
+                st.session_state["uc1_query"] = ""
+                st.session_state["uc1_result"] = ""
 
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.uc1_messages.append({"role": "assistant", "content": response})
 
-if st.session_state["crew_result"] != "":
-    st.markdown(st.session_state["crew_result"])
+if st.session_state["uc1_result"] != "":
+    st.markdown(st.session_state["uc1_result"])
 
-if st.button("Clear chat history..."):
-    st.session_state.messages = []
-    st.session_state["init_query"] = ""
-    st.session_state["crew_result"] = ""
-    response = ""
+col1, col2 = st.columns(2)
+    
+with col1:
+    if st.button("Clear chat history..."):
+        st.session_state.uc1_messages = []
+        st.session_state["uc1_query"] = ""
+        st.session_state["uc1_result"] = ""
+        response = ""
+
+with col2:
+    if st.session_state["uc1_result"] != "":
+        st.download_button(
+            label="Download Report", 
+            data=str(st.session_state["uc1_result"]), 
+            file_name="business_registration_guide.md", 
+            icon=":material/download:"
+        )

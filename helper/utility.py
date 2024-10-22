@@ -48,43 +48,76 @@ def check_file(file_name):
     return file_path.exists()
 
 
-def show_sample_prompt():
-    html_code = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>2 Rows, 3 Columns Box</title>
-        <style>
-            .container {
-                display: grid;
-                grid-template-columns: repeat(2, auto);
-                grid-template-rows: repeat(2, auto);
-                gap: 10px;
-                padding: 20px;
-                max-width: 600px;
-                margin: auto;
-            }
+def show_sample_prompt(usecase):
 
-            .box {
-                background-color: #f0f0f0;
-                padding: 10px 20px;
-                text-align: center;
-                border: 1px solid #ccc;
-                border-radius: 10px; /* Rounded edges */
-                display: inline-block;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="box">Setting up a crypto trading company.</div>
-            <div class="box">How to start the audit firm in Singapore.</div>
-            <div class="box">I want to start the business in IT.</div>
-            <div class="box">Process for starting a shipping business.</div>
-        </div>
-    </body>
-    </html>
+    all_samples = {
+        "uc1" : [
+            "Setting up a crypto trading company.",
+            "How to start the audit firm in Singapore.",
+            "I want to start the Space Launch Service company.",
+            "Process for starting a shipping business."
+        ],
+        "uc2" : [
+            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
+            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
+            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
+            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow"
+        ]
+    }
+
+    html_code = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>2 Rows, 3 Columns Box</title>
+            <style>
+                .container {
+                    display: grid;
+                    grid-template-columns: repeat(2, auto);
+                    grid-template-rows: repeat(2, auto);
+                    gap: 10px;
+                    padding: 20px;
+                    max-width: 600px;
+                    margin: auto;
+                }
+
+                .box {
+                    background-color: #f0f0f0;
+                    padding: 10px 20px;
+                    text-align: center;
+                    border: 1px solid #ccc;
+                    border-radius: 10px; /* Rounded edges */
+                    display: inline-block;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="box">sample0</div>
+                <div class="box">sample1</div>
+                <div class="box">sample2</div>
+                <div class="box">sample3</div>
+            </div>
+        </body>
+        </html>
     """
+
+    samples = all_samples[usecase]
+
+    for i in range(4):
+        html_code = html_code.replace(f"sample{i}", samples[i])
+
     st.html(html_code)
+
+def show_disclaimer():
+
+    with st.expander("**DISCLAIMER**"):
+        st.write("""
+        **IMPORTANT NOTICE**: This web application is a prototype developed for educational purposes only. The information provided here is NOT intended for real-world usage and should not be relied upon for making any decisions, especially those related to financial, legal, or healthcare matters.
+
+        **Furthermore, please be aware that the LLM may generate inaccurate or incorrect information. You assume full responsibility for how you use any generated output.**
+
+        Always consult with qualified professionals for accurate and personalized advice.
+        """)

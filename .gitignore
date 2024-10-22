@@ -22,3 +22,6 @@ dist/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# chroma db
+db/

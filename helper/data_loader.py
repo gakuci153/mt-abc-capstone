@@ -1,11 +1,13 @@
+import streamlit as st
 from helper import scraper, utility
 
 DATA_FILES = {
-    "acra" : "./data/https___www.acra.gov.sg.txt", 
-    "gobusiness" : "./data/https___www.gobusiness.gov.sg.txt",
-    "iras" : "./data/https___www.iras.gov.sg.txt"
+    "acra" : "./data/https___www.acra.gov.sg.json", 
+    "gobusiness" : "./data/https___www.gobusiness.gov.sg.json",
+    "iras" : "./data/https___www.iras.gov.sg.json"
 }
 
+@st.cache_data
 def load_data(website_name):
 
     data_source = utility.load_ds_file()

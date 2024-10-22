@@ -12,8 +12,8 @@ def logout():
 login_page = st.Page("info/login.py", title="Log in", icon=":material/login:")
 logout_page = st.Page(logout, title="Log out", icon=":material/logout:")
 
-usecase_1 = st.Page("usecases/usecase_1.py", title="Starting a Business", icon=":material/tips_and_updates:", default=True)
-usecase_2 = st.Page("usecases/usecase_2.py", title="Use Case 2", icon=":material/psychology:")
+usecase_1 = st.Page("usecases/usecase_1.py", title="1. Starting a Business", icon=":material/tips_and_updates:", default=True)
+usecase_2 = st.Page("usecases/usecase_2.py", title="2. Getting Business Support", icon=":material/universal_currency:")
 
 about_us = st.Page("info/about_us.py", title="About Us", icon=":material/person:")
 methodology = st.Page("info/methodology.py", title="Methodology", icon=":material/polyline:")
