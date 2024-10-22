@@ -27,7 +27,7 @@ def scrape_website(url, exclude_dirs=[], max_depth=5):
 
     # Define the file path to store the data
     file_name = sanitize_filename(url)
-    output_file = f'./data/{file_name}.txt'
+    output_file = f'./data/{file_name}.json'
 
     output = []
     
