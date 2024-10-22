@@ -23,6 +23,7 @@ tool_iras_json = JSONSearchTool(json_path=data_files['iras'])
 tool_web_rag = WebsiteSearchTool()
 
 tool_dalle = DallETool()
+
 # Initialize the tool with a specific Youtube channel handle for target search
 #tool_acra_youtube = YoutubeChannelSearchTool(youtube_channel_handle='@acraadmin')
 #tool_iras_youtube = YoutubeChannelSearchTool(youtube_channel_handle='@IRASSpore')
@@ -49,11 +50,12 @@ def business_assistant_crew():
 
     task_prerequisit = Task(
         description="""\
-        Analyze the provided input {init_query}, {industry} industry, initial capital {company_capital} and provide the step by step process to register the business.
+        Analyze the provided input {init_query}, {industry} industry, initial capital {company_capital} 
+        provide the step by step process to register the business as well as other legal requirements and compliances.
         """,
 
         expected_output="""\
-        Step by step guide for company registration with the original source as reference for the {industry} industry.
+        List of documents needed and step by step guide for company registration with the original source as reference for the {industry} industry.
         """,
 
         agent=agent_business_advisor,
@@ -63,7 +65,10 @@ def business_assistant_crew():
 
     agent_license_expert = Agent (
         role="License Expert",
-        goal="Gather the licensing requirment for the businees type and industry consulsted by the Business Advisor.",
+        goal="""\
+        Gather the licensing requirment for the {business_type} businees type and {industry} industry 
+        consulsted by the Business Advisor based on the {init_query}
+        """,
 
         backstory="""\
         You are the license expert who understands licensing needs and application processes in Singapore.
@@ -81,12 +86,14 @@ def business_assistant_crew():
 
     task_license_application = Task(
         description="""\
-        Analyze the provided {industry} industry, initial capital {company_capital} and determine the licensing requirement specific to that industry. 
-        Provide the details licensing requirements and regulatory compliance specific to the {industry} industry.
+        Analyze the provided {init_query}, {industry} industry, initial capital {company_capital} and 
+        determine the licensing requirement specific to that industry. Provide the details licensing 
+        requirements and regulatory compliance specific to the {industry} industry.
         """,
 
         expected_output="""\
-        Step by step guide for license process and application with the original source as reference.
+        List of licenses needed and step by step guide for license process and application for the company
+        with the original source as reference.
         """,
         
         agent=agent_license_expert,
@@ -96,7 +103,10 @@ def business_assistant_crew():
 
     agent_insurance_expert = Agent (
         role="Insurance Expert",
-        goal="Gather the licensing requirment for the businees type and industry consulsted by the Business Advisor.",
+        goal="""\
+        Gather the insurance needs for the {business_type} businees type and {industry} industry 
+        consulsted by the Business Advisor based on the {init_query}.
+        """,
 
         backstory="""\
         You are the expert in business insurance who know the regulatory requirements in Singapore.
@@ -114,12 +124,14 @@ def business_assistant_crew():
 
     task_insurance_application = Task(
         description="""\
-        Based on the provided {industry} and determine the regulatory requirement for insurance specific to that industry. 
+        Analyze the provided {init_query}, {industry} industry, initial capital {company_capital} and 
+        determine the regulatory requirements for insurance, specific to that business type and industry. 
         Provide the details insurance requirements for the {industry} industry from insurance companies in Singapore only.
         """,
 
         expected_output="""\
-        List of insurance needed for the {industry} industry and step by step guide with the original source as reference.
+        List of insurance needed and step by step application guide and application process for the company
+        with the original source as reference.
         """,
         
         agent=agent_insurance_expert,
@@ -132,8 +144,9 @@ def business_assistant_crew():
         goal="Consolidate all the information from other agents and prepare the comphrensive guide for the client.",
 
         backstory="""\
-        You are the consultant who consult and consolidate the reports from the other agents. 
-        With an eye for detail, you organize all the information into a coherent and comphrensive guide for the client.
+        You are the consultant who is excellent in consolidating the reports from the other agents. 
+        With an eye for detail, you organize all the information into a coherent and comphrensive report for the client.
+        You will also prepare the summary process flow in a concise steps for image generator to use.
         """, 
         
         allow_delegation=False,
@@ -145,17 +158,18 @@ def business_assistant_crew():
     task_prepare_guide = Task(
         description="""\
         Gather all the reports from other agents and review carefully. And prepare the guide that contains 
-        the step by step information on the {industry} specific business registration process, licensing process, 
-        cost of registration, requirement documents and steps for opening business bank accounts, 
-        list of insurance needed and other regulatory compliance that are essentials to start a business.
+        the list of documents required, eligibility criteria, the step by step guide on the {industry} specific business registration process, licensing process, 
+        cost of registration, steps for opening business bank accounts and supporting documents, 
+        list of insurance needed and detail steps on the application process as well as other regulatory 
+        compliance that are essentials to start a business. At the end of the report, 
+        a very clear description of the entire process flow in a concise manner for the image generator to use.
         """,
 
         expected_output="""\
         Final comphresive guide document for setting up business in Singapore with the original source as reference.
         The document will be presentable, consistent and error free with proper formatting and identation. 
-        At the end of the report, provide the summary of high level flow chart in a graphical form. 
-        The image is meant for management reference. Make sure the image is clear, professional, visually appealing and
-        you need to break down into multiple images if necessary to improve the readibily and clarify. Don't add fine grain details in the image.
+        At the end of the report, the summarized high level process flow image will be added. 
+        The image is plain without fancy illustrations but looks professional.
         """,
         context=[task_prerequisit, task_license_application, task_insurance_application],
         agent=agent_consultant,
