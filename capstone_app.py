@@ -5,7 +5,7 @@ if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
 
 def logout():
-    if st.button("Confirm to Log out?"):
+    if st.button("Ready to Log out?"):
         u.clear_all_sessions()
         st.rerun()
 
