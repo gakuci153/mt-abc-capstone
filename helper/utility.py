@@ -52,13 +52,13 @@ def show_sample_prompt(usecase):
 
     all_samples = {
         "uc1" : [
-            "Setting up a crypto trading company.",
-            "How to start the audit firm in Singapore.",
-            "I want to start the Space Launch Service company.",
+            "Setting up a crypto trading company. I've a foreign investor.",
+            "How to start the audit firm in Singapore. It will be a partnership with my colleague.",
+            "My friend and I want to start a Space Launch Service company. We have 10 million capital.",
             "Process for starting a shipping business."
         ],
         "uc2" : [
-            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
+            "Find out the business support schemes for IT business with revenue 10k but having negative cashflow.",
             "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
             "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
             "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow"
