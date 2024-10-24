@@ -22,7 +22,9 @@ The project leverages primary data from [www.acra.gov.sg](https://www.acra.gov.s
 
 ## Features:
 
-- **General:** The app validates user inputs to ensure no malicious prompts are entered and that queries remain within the app's designated focus area. The system is password-protected and accessible only to authorized users.
+###General
+
+The app validates user inputs to ensure no malicious prompts are entered and that queries remain within the app's designated focus area. The system is password-protected and accessible only to authorized users.
   
 ### Use Case 1: Starting a Business
 
