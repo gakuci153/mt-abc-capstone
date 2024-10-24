@@ -3,7 +3,7 @@ import streamlit as st
 from helper import utility as u
 from logics import ai_assistant as a, validator as v
 
-st.subheader("Business Schemes and Tax Benefits in Singapore", divider=False)
+st.subheader("Singapore Business Schemes Assistant", divider=False)
 
 u.show_disclaimer()
 
@@ -24,7 +24,7 @@ for uc2_message in st.session_state.uc2_messages:
 
 response = ""
 
-if prompt := st.chat_input("Hi! Wondering about business scheme and benefit in Singapore?", key="usecase2"):
+if prompt := st.chat_input("Hi! Wondering about business schemes and benefits in Singapore?", key="usecase2"):
     st.session_state.uc2_messages.append({"role": "user", "content": prompt})
     st.session_state["uc2_query"] = prompt
     
@@ -33,7 +33,7 @@ if prompt := st.chat_input("Hi! Wondering about business scheme and benefit in S
 
     with st.chat_message("assistant"):
 
-        with st.status("Trying to answer...", expanded=True) as status:
+        with st.status("Trying to find an answer...", expanded=True) as status:
 
             try:
                 st.write("Validating user query...")

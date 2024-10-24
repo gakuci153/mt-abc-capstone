@@ -33,7 +33,7 @@ if prompt := st.chat_input("Hi! Starting a business in Singapore?", key="usecase
 
     with st.chat_message("assistant"):
 
-        with st.status("Trying to answer...", expanded=True) as status:
+        with st.status("Trying to find an answer...", expanded=True) as status:
 
             try:
                 st.write("Validating user query...")
