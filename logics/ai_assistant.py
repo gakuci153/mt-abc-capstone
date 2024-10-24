@@ -18,9 +18,10 @@ tool_acra_json = JSONSearchTool(json_path=data_files['acra'])
 tool_iras_json = JSONSearchTool(json_path=data_files['iras'])
 
 # Initialize the web search tool
+tool_web_rag = WebsiteSearchTool()
+
 #tool_serperweb = SerperDevTool(country="sg", location="Singapore")
 #tool_scrapeweb = ScrapeWebsiteTool()
-tool_web_rag = WebsiteSearchTool()
 
 tool_dalle = DallETool()
 
@@ -130,7 +131,7 @@ def business_assistant_crew():
         """,
 
         expected_output="""\
-        List of insurance needed and step by step application guide and application process for the company
+        List of insurance needed, their coverage, premium cost and step by step application guide and application process for the company
         with the original source as reference.
         """,
         
@@ -159,22 +160,23 @@ def business_assistant_crew():
         description="""\
         Gather all the reports from other agents and review carefully. And prepare the guide that contains 
         the list of documents required, eligibility criteria, the step by step guide on the {industry} specific business registration process, licensing process, 
-        cost of registration, steps for opening business bank accounts and supporting documents, 
-        list of insurance needed and detail steps on the application process as well as other regulatory 
-        compliance that are essentials to start a business. At the end of the report, 
-        a very clear description of the entire process flow in a concise manner for the image generator to use.
+        cost of registration, capital requirements, steps for opening business bank accounts and supporting documents, 
+        list of insurance needed, their coverage, premium cost and detail steps on the application process as well as other regulatory 
+        compliance that are essentials to start a business. 
+        
         """,
+        #At the end of the report, an image will be show with a list of topics and its major steps summarized.
 
         expected_output="""\
         Final comphresive guide document for setting up business in Singapore with the original source as reference.
-        The document will be presentable, consistent and error free with proper formatting and identation. 
-        At the end of the report, the summarized high level process flow image will be added. 
-        The image is plain without fancy illustrations but looks professional.
+        The document will be presentable, consistent and error free with proper formatting and identation.  
         """,
+        #At the end of the report, a flow chart image will be added which shows the topics from the report and its logical steps.
+
         context=[task_prerequisit, task_license_application, task_insurance_application],
         agent=agent_consultant,
 
-        tools=[tool_dalle],
+        #tools=[tool_dalle],
         async_execution=False
     )
 
