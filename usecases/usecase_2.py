@@ -49,9 +49,8 @@ if prompt := st.chat_input("Hi! Wondering about business schemes and benefits in
                     user_input["company_revenue"] = validation_response["company_revenue"]
                     user_input["business_type"] = validation_response["business_type"]
                     user_input["additional_info"] = validation_response["additional_info"]
-                    #user_input["answer"] = validation_response["answer"]
-                    
-                    st.write(f"Ok. {user_input}")
+                                        
+                    st.write(f"{user_input}")
 
                     ### this execution will take a few minutes to run
                     st.write("I am working on it. It will take a few minutes!!")

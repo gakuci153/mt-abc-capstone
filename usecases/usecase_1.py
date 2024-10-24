@@ -48,7 +48,7 @@ if prompt := st.chat_input("Hi! Starting a business in Singapore?", key="usecase
                     user_input["industry"] = validation_response["industry"]
                     user_input["company_capital"] = validation_response["company_capital"]
                     user_input["business_type"] = validation_response["business_type"]
-                    st.write(f"Ok. {user_input}")
+                    st.write(f"{user_input}")
 
                     ### this execution will take a few minutes to run
                     st.write("I am working on it. It will take a few minutes!!")
