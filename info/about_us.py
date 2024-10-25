@@ -34,7 +34,7 @@ The Singapore Business Schemes Assistant enables users to find tailored governme
 
 ## Developer:
 
-This application was developed by Mya Thein @ Deepak as part of GovTech's AI Champions Bootcamp - Pilot Run (Whole-of-Government).
+This application was developed by Mya Thein @ Deepak as part of GovTech's AI Champions Bootcamp - 2024 Pilot Run (WOG).
 
 """
 
