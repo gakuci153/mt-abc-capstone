@@ -33,12 +33,12 @@ def business_assistant_crew():
 
     agent_business_advisor = Agent (
         role="Business Advisor",
-        goal="Gather the information required for business setup and provide the detail process of company registration.",
+        goal="Gather the necessary information for business setup and outline the detailed process for company registration in Singapore.",
 
         backstory="""\
-        As a Business Advisor, your expertise in understanding the business setup process in Singapore 
-        is unparalleled. You will provide the consultation based on the information from 
-        Singapore Government websites which have the domain name ending with "gov.sg".
+        As a Business Advisor, your expertise in the business setup process in Singapore is unmatched. 
+        You provide the consultation based on information from official Singapore government websites 
+        ending in '.gov.sg'.
         """, 
         
         allow_delegation=False,
@@ -51,12 +51,25 @@ def business_assistant_crew():
 
     task_prerequisit = Task(
         description="""\
-        Analyze the provided input {init_query}, {industry} industry, initial capital {company_capital} 
-        provide the step by step process to register the business as well as other legal requirements and compliances.
+        Analyze the provided input for the industry, considering an initial capital and business type. 
+        They are all provided in <input>, <industry>, <busines_type> and <initial_capital> xml tags respectively.
+        I would like you to outline the step-by-step process for registering the business, 
+        including specific documentation needed and any relevant government agencies involved. 
+        Additionally, detail other legal requirements, such as licenses or permits, as well as compliance 
+        measures that must be adhered to throughout the registration process. Any insights into 
+        industry-specific regulations or best practices would also be greatly appreciated.
+
+        input : <input>{init_query}</input>
+        industry : <industry>{industry}</industry>
+        business type : <business_type>{business_type}</business_type>
+        initial capital : <initial_capital>{company_capital}</initial_capital>
+        
         """,
 
         expected_output="""\
-        List of documents needed and step by step guide for company registration with the original source as reference for the {industry} industry.
+        Create a step-by-step guide for company registration in the {industry} industry and 
+        all the mandatory requirements and criteria, along with references to the original sources. 
+        Additionally, advise on the best company structure to adopt.
         """,
 
         agent=agent_business_advisor,
@@ -67,14 +80,13 @@ def business_assistant_crew():
     agent_license_expert = Agent (
         role="License Expert",
         goal="""\
-        Gather the licensing requirment for the {business_type} businees type and {industry} industry 
-        consulsted by the Business Advisor based on the {init_query}
+        Gather the necessary information on business, professional and industrial licensing requirements in Singapore.
         """,
 
         backstory="""\
-        You are the license expert who understands licensing needs and application processes in Singapore.
-        You will provide the consultation based on the information from Singapore Government websites 
-        which have the domain name ending with "gov.sg".
+        You are a licensing expert knowledgeable about licensing requirements and application processes 
+        in Singapore. You provide the consultation based on information from official Singapore government 
+        websites ending in '.gov.sg'.
         """, 
         
         allow_delegation=False,
@@ -87,14 +99,24 @@ def business_assistant_crew():
 
     task_license_application = Task(
         description="""\
-        Analyze the provided {init_query}, {industry} industry, initial capital {company_capital} and 
-        determine the licensing requirement specific to that industry. Provide the details licensing 
-        requirements and regulatory compliance specific to the {industry} industry.
+        Analyze the provided input in the context of the industry, considering an initial capital and business type. 
+        They are all provided in <input>, <industry>, <busines_type> and <initial_capital> xml tags respectively.
+        You need to determine the specific licensing requirements relevant to that industry, 
+        including any necessary permits or certifications. 
+        Additionally, provide comprehensive details on regulatory compliance obligations, such as ongoing reporting 
+        requirements and adherence to industry standards. If possible, include any relevant government 
+        agencies or resources where further information or assistance regarding these requirements can be found.
+        
+        input : <input>{init_query}</input>
+        industry : <industry>{industry}</industry>
+        business type : <business_type>{business_type}</business_type>
+        initial capital : <initial_capital>{company_capital}</initial_capital>
+
         """,
 
         expected_output="""\
-        List of licenses needed and step by step guide for license process and application for the company
-        with the original source as reference.
+        Create a list of licenses required, documentation needed, and a step-by-step guide for 
+        the license application process, and license fees if any along with references to the original sources.
         """,
         
         agent=agent_license_expert,
@@ -105,14 +127,14 @@ def business_assistant_crew():
     agent_insurance_expert = Agent (
         role="Insurance Expert",
         goal="""\
-        Gather the insurance needs for the {business_type} businees type and {industry} industry 
-        consulsted by the Business Advisor based on the {init_query}.
+        Gather the necessary information on the business insurances available in Singapore and 
+        outline the detailed requirement and application process.
         """,
 
         backstory="""\
-        You are the expert in business insurance who know the regulatory requirements in Singapore.
-        You will provide the consultation based on the information from Singapore Government websites 
-        which have the domain name ending with "gov.sg".
+        You are an expert in business insurance with knowledge of regulatory requirements in Singapore. 
+        You provide consultation based on information from official Singapore government websites 
+        ending in '.gov.sg' and the insurance companies registered in Singapore.
         """, 
         
         allow_delegation=False,
@@ -125,14 +147,22 @@ def business_assistant_crew():
 
     task_insurance_application = Task(
         description="""\
-        Analyze the provided {init_query}, {industry} industry, initial capital {company_capital} and 
-        determine the regulatory requirements for insurance, specific to that business type and industry. 
-        Provide the details insurance requirements for the {industry} industry from insurance companies in Singapore only.
+        Analyze the provided input for the industry, considering initial capital and business type.
+        They are all provided in <input>, <industry>, <busines_type> and <initial_capital> xml tags respectively.
+        Determine the regulatory insurance requirements specific to that business type 
+        and industry, and provide details on the insurance requirements from companies in Singapore only.
+        
+        input : <input>{init_query}</input>
+        industry : <industry>{industry}</industry>
+        business type : <business_type>{business_type}</business_type>
+        initial capital : <initial_capital>{company_capital}</initial_capital>
+        
         """,
 
         expected_output="""\
-        List of insurance needed, their coverage, premium cost and step by step application guide and application process for the company
-        with the original source as reference.
+        Create a list of required insurance policies, including their coverage details, premium costs, 
+        and a step-by-step application guide for the company, along with references to original sources. 
+        Additionally, include recommendations.
         """,
         
         agent=agent_insurance_expert,
@@ -142,12 +172,11 @@ def business_assistant_crew():
 
     agent_consultant = Agent (
         role="Consultant",
-        goal="Consolidate all the information from other agents and prepare the comphrensive guide for the client.",
+        goal="Consolidate all information from other agents and prepare a comprehensive guide for the client.",
 
         backstory="""\
-        You are the consultant who is excellent in consolidating the reports from the other agents. 
-        With an eye for detail, you organize all the information into a coherent and comphrensive report for the client.
-        You will also prepare the summary process flow in a concise steps for image generator to use.
+        You are a consultant skilled in consolidating reports from other agents. 
+        With a keen eye for detail, organize all information into a coherent and comprehensive report for the client.
         """, 
         
         allow_delegation=False,
@@ -158,21 +187,16 @@ def business_assistant_crew():
 
     task_prepare_guide = Task(
         description="""\
-        Gather all the reports from other agents and review carefully. And prepare the guide that contains 
-        the list of documents required, eligibility criteria, the step by step guide on the {industry} specific business registration process, licensing process, 
-        cost of registration, capital requirements, steps for opening business bank accounts and supporting documents, 
-        list of insurance needed, their coverage, premium cost and detail steps on the application process as well as other regulatory 
-        compliance that are essentials to start a business. 
+        Gather and carefully review all reports from other agents. 
+        Prepare a comprehensive guide by consolidating all the information in a single report.
+        """,
         
-        """,
-        #At the end of the report, an image will be show with a list of topics and its major steps summarized.
-
         expected_output="""\
-        Final comphresive guide document for setting up business in Singapore with the original source as reference.
-        The document will be presentable, consistent and error free with proper formatting and identation.  
+        Create a final guide for setting up a business in Singapore, 
+        including references to original sources. The document should be presentable, consistent, 
+        error-free, and properly formatted with appropriate indentation.
         """,
-        #At the end of the report, a flow chart image will be added which shows the topics from the report and its logical steps.
-
+        
         context=[task_prerequisit, task_license_application, task_insurance_application],
         agent=agent_consultant,
 
@@ -193,14 +217,12 @@ def schemes_assistant_crew():
     agent_scheme_expert = Agent (
         role="Business Scheme Expert",
         goal="""\
-        Gather the business support schemes, tax incentives, financial assistance and grants available 
-        on Singapore Government websites which have the domain name ending with "gov.sg".
+        Gather information on business support schemes, financial assistance, and grants available in Singapore.
         """,
 
         backstory="""\
-        As a Business Scheme Expert, your expertise in business support schemes, tax incentives, 
-        financial assistances and grants in Singapore is unparalleled. You will provide the consultation 
-        based on the information from Singapore Government websites which have the domain name ending with "gov.sg".
+        As a Business Scheme Expert, your knowledge of business support schemes, financial assistance, and grants in Singapore is exceptional. 
+        You provide the consultation based on information from Singapore government websites ending in '.gov.sg'.
         """, 
         
         allow_delegation=False,
@@ -213,15 +235,24 @@ def schemes_assistant_crew():
 
     task_gather_schemes_info = Task(
         description="""\
-        Analyze the provided inputs {init_query}, {industry} industry, revenue {company_revenue}, 
-        {additional_info} and provide the Singapore Government schemes, tax incentives, financial assistants,
-        other benefial information which is suitable and closely matched with inputs.
+        Analyze the provided input, industry, business type, company revenue, and additional info. 
+        They are all provided in <input>, <industry>, <business_type>, <company_revenue> and <additional_info> xml tags respectively.
+        Provide the information on Singapore government schemes, financial assistance, 
+        grants, and any other relevant benefits that closely match these input.
+
+        input : <input>{init_query}</input>
+        industry : <industry>{industry}</industry>
+        business type : <business_type>{business_type}</business_type>
+        company revenue : <company_revenue>{company_revenue}</company_revenue>
+        additional info : <additional_info>{additional_info}</additional_info>
+
         """,
 
         expected_output="""\
-        Singapore Government schemes, tax incentives, financial assistants, other benefial information which
-        are relevants to user inputs and their eligibility criteria, grant amounts, and application processes 
-        with the original source as reference.
+        Create a list of available Singapore government schemes, financial assistance, 
+        grants, and other relevant benefits that match user input. Include eligibility criteria 
+        for each scheme, required documents, and a step-by-step application process, 
+        along with references to original sources. Include recommendations.
         """,
 
         agent=agent_scheme_expert,
@@ -232,14 +263,13 @@ def schemes_assistant_crew():
     agent_tax_expert = Agent (
         role="Tax Expert",
         goal="""\
-        Gather the taxation and tax relief information on Singapore Government websites 
-        which have the domain name ending with "gov.sg".
+        Gather information on taxation requirements, tax incentives, tax relief, and other tax benefits 
+        relevant to Singapore.
         """,
 
         backstory="""\
-        As a Tax Expert, your expertise in corporate tax matter in Singapore is unparalleled. 
-        You will provide the consultation based on the information from Singapore Government websites 
-        which have the domain name ending with "gov.sg".
+        As a Tax Expert, your knowledge of corporate tax matters in Singapore is exceptional. 
+        You provide the consultation based on information from Singapore government websites ending in '.gov.sg'.
         """, 
         
         allow_delegation=False,
@@ -252,15 +282,25 @@ def schemes_assistant_crew():
 
     task_gather_tax_info = Task(
         description="""\
-        Analyze the provided inputs {init_query}, {industry} industry, revenue {company_revenue}, 
-        {additional_info} and gather the Singapore Government tax incentives, taxation and
-        other benefial information which is suitable and closely matched with inputs and beneficial to the business.
-        And then, you will provide the details information on taxataion, tax relief, steps to claims or submit.
+        Analyze the provided input, industry, business type, company revenue, and additional info. 
+        They are all provided in <input>, <industry>, <business_type>, <company_revenue> and <additional_info> xml tags respectively. 
+        Gather relevant Singapore government tax incentives, exemptions, claims, and other beneficial 
+        information that closely aligns with these input and is advantageous for the business. 
+        Then, provide detailed information on taxation, tax incentives, tax relief, tax exemptions and the steps for claims or submissions.
+        
+        input : <input>{init_query}</input>
+        industry : <industry>{industry}</industry>
+        business type : <business_type>{business_type}</business_type>
+        company revenue : <company_revenue>{company_revenue}</company_revenue>
+        additional info : <additional_info>{additional_info}</additional_info>
+        
         """,
 
         expected_output="""\
-        Details on Singapore Government tax incentives, taxation requirement, tax relief and exemption, other benefial information which
-        are relevants to user inputs and beneficial to the business. And step by step processes with the original source as reference.
+        Provide details on Singapore government taxation requirements, tax incentives, tax relief, 
+        tax exemptions, and other relevant information that benefits the business based on user inputs. 
+        Include a list of required documents, eligibility criteria, and step-by-step processes to claim tax benefits, 
+        along with references to original sources.
         """,
 
         agent=agent_tax_expert,
@@ -270,11 +310,11 @@ def schemes_assistant_crew():
 
     agent_report_writer = Agent (
         role="Report Writer",
-        goal="Consolidate all the information from other agents and prepare the comphrensive guide for the client.",
-
+        goal="Consolidate all information from other agents and prepare a comprehensive guide for the client.",
+        
         backstory="""\
-        You are the report writer who review and consolidate the reports from the other agents. With an eye for detail, 
-        you organize all the information into a coherent and comphrensive guide for the client.
+        You are the report writer responsible for reviewing and consolidating reports from other agents. 
+        With a keen eye for detail, you will organize the information into a coherent and comprehensive guide for the client.
         """, 
         
         allow_delegation=False,
@@ -285,21 +325,19 @@ def schemes_assistant_crew():
 
     task_prepare_report = Task(
         description="""\
-        Gather all the reports from other agents and review carefully. And compile the report that contains 
-        the detail information specific to schemes, tax incentives, financial assistants, other benefial information which
-        are relevants to user inputs.
+        Gather and carefully review all reports from other agents. 
+        Compile a comprehensive guide by consolidating all the information in a single report.
         """,
 
         expected_output="""\
-        Final comphresive guide document on business support schemes in Singapore with the original source as reference.
-        The document will be presentable, consistent and error free with proper formatting and identation. 
-        At the end of the report, provide the summary in a graphical form with logical flow chart for the management.
-        Make sure the image is clear and professional.
+        Create a final guide on business support schemes in Singapore including references to original sources.
+        The document should be presentable, consistent, error-free and properly formated with appropriate identation. 
         """,
-        context=[task_gather_schemes_info],
+
+        context=[task_gather_schemes_info, task_gather_tax_info],
         agent=agent_report_writer,
 
-        tools=[tool_dalle],
+        #tools=[tool_dalle],
         async_execution=False
     )
 
