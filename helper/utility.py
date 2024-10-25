@@ -52,16 +52,16 @@ def show_sample_prompt(usecase):
 
     all_samples = {
         "uc1" : [
-            "Setting up a crypto trading company. I've a foreign investor.",
-            "How to start the audit firm in Singapore. It will be a partnership with my colleague.",
-            "My friend and I want to start a Space Launch Service company. We have 10 million capital.",
-            "Process for starting a shipping business."
+            "I’m starting a cryptocurrency trading company backed by a foreign investor. Can you outline the regulatory requirements, licensing, and compliance obligations? Also, are there any restrictions or special considerations for foreign investments in this sector?",
+            "I want to start an audit firm in Singapore as a partnership with my colleague. Could you provide the essential steps, including qualifications, regulatory requirements, registration, and licensing, as well as advice on structuring the partnership and ensuring compliance?",
+            "My friend and I want to start a Space Launch Service company with $10 million in capital. Could you outline the critical steps, including licensing, regulatory requirements, and operational setup? Any insights on managing capital for initial stages would also be helpful.",
+            "What are the key steps to start a shipping business, including regulatory requirements, licenses, and initial funding needs? Any insights on business structure and compliance would be helpful."
         ],
         "uc2" : [
-            "Find out the business support schemes for IT business with revenue 10k but having negative cashflow.",
-            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
-            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow",
-            "I want to find out business support schemes for IT business with revenue 10k but having negative cashflow"
+            "My friend and I co-own a small IT business generating $10,000 monthly but facing negative cash flow. Can you help us find government assistance programs or support schemes, such as grants or low-interest loans, for small IT companies in financial difficulty?",
+            "I want to expand my business reach to European and Latin American clients . Get me the government support schemes to help my business grow. I am in tourism with 10 employees. Current revenue is 70000 SGD.",
+            "I own a food stall generating $10,000 monthly but lack savings to expand. Can you help me find government grants or financial assistance programs for small food businesses, including eligibility and application details?",
+            "I am a regional director of an MNC in the manufacturing sector. I would like to know if there are any business support options available to help hedge against the current economic downturn. Last year, my company's revenue was $1 million."
         ]
     }
 
@@ -109,7 +109,8 @@ def show_sample_prompt(usecase):
     for i in range(4):
         html_code = html_code.replace(f"sample{i}", samples[i])
 
-    st.html(html_code)
+    with st.expander("Sample Prompts"):
+        st.html(html_code)
 
 def show_disclaimer():
 
