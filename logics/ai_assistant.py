@@ -23,7 +23,7 @@ tool_web_rag = WebsiteSearchTool()
 #tool_serperweb = SerperDevTool(country="sg", location="Singapore")
 #tool_scrapeweb = ScrapeWebsiteTool()
 
-tool_dalle = DallETool()
+#tool_dalle = DallETool()
 
 # Initialize the tool with a specific Youtube channel handle for target search
 #tool_acra_youtube = YoutubeChannelSearchTool(youtube_channel_handle='@acraadmin')
