@@ -3,7 +3,7 @@ import streamlit as st
 from helper import utility as u
 from logics import ai_assistant as a, validator as v
 
-st.subheader("Singapore Business Setup Assistant", divider=False)
+st.subheader("Singapore Business Setup Assistant", divider=False, help=u.get_help("uc1"))
 
 u.show_disclaimer()
 

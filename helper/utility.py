@@ -122,3 +122,15 @@ def show_disclaimer():
 
         Always consult with qualified professionals for accurate and personalized advice.
         """)
+
+def get_help(usecase):
+    
+    help_text = "This is a sample help text."
+
+    if usecase == "uc1" :
+        help_text = "The Singapore Business Startup Assistant allows users to specify the nature of the business they wish to establish, available funding, and other relevant details. Based on this input, it generates a report outlining the company registration process, licensing requirements, insurance, setting up a bank account, and other regulatory obligations needed to operate a business in Singapore. The report can be downloaded in markdown format."
+        
+    elif usecase == "uc2" :
+        help_text = "The Singapore Business Schemes Assistant enables users to find tailored government schemes, financial support, grants, and tax incentives based on the details they provide in the input chat. The report can be downloaded in markdown format."
+    
+    return help_text
