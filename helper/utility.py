@@ -17,12 +17,11 @@ if load_dotenv('.env'):
     OPENAI_KEY = os.getenv('OPENAI_API_KEY')
     OPENAI_MODEL = os.getenv('OPENAI_MODEL_NAME')
     OPENAI_EMBEDDING = os.getenv('OPENAI_EMBEDDING_NAME')
-    FIRECRAWL_API_KEY = os.getenv('FIRECRAWL_API_KEY')
+
 else:
     OPENAI_KEY = st.secrets['OPENAI_API_KEY']
     OPENAI_MODEL = st.secrets['OPENAI_MODEL_NAME']
     OPENAI_EMBEDDING = st.secrets['OPENAI_EMBEDDING_NAME']
-    FIRECRAWL_API_KEY = st.secrets['FIRECRAWL_API_KEY']
 
 
 def clear_all_sessions():
