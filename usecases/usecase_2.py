@@ -55,7 +55,6 @@ if prompt := st.chat_input("Hi! Wondering about business schemes and benefits in
                     ### this execution will take a few minutes to run
                     st.write("I am working on it. It will take a few minutes!!")
                     
-                    result = "Fake result"
                     result = a.schemes_assistant_crew().kickoff(inputs=user_input)        
                     st.session_state["uc2_result"] = result.tasks_output[2]
                     st.session_state["uc2_query"] = ""
@@ -91,6 +90,7 @@ with col1:
         st.session_state["uc2_query"] = ""
         st.session_state["uc2_result"] = ""
         response = ""
+        st.rerun()
 
 with col2:
     if st.session_state["uc2_result"] != "":

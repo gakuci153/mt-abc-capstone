@@ -88,6 +88,7 @@ with col1:
         st.session_state["uc1_query"] = ""
         st.session_state["uc1_result"] = ""
         response = ""
+        st.rerun()
 
 with col2:
     if st.session_state["uc1_result"] != "":
