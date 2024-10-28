@@ -7,7 +7,7 @@ overview = """
 
 ## 1. Overview
 
-This document outlines the methodology and technical specifications for this application that provides structured guidance for starting a business in Singapore and accessing the business schemes. Built with Python, Streamlit, OpenAI’s LLM models, LangChain, and CrewAI, the application is deployed on Streamlit Community Cloud.
+This page outlines the methodology and technical specifications for this application that provides structured guidance for starting a business in Singapore and accessing the business schemes. Built with Python, Streamlit, OpenAI’s LLM models, LangChain, and CrewAI, the application is deployed on Streamlit Community Cloud.
 
 ---
 
